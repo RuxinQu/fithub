@@ -1,15 +1,9 @@
-import InfoIcon from "@mui/icons-material/Info";
-import WarningIcon from "@mui/icons-material/Warning";
 import ReportIcon from "@mui/icons-material/Report";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import * as React from "react";
-import Box from "@mui/joy/Box";
-import Alert from "@mui/joy/Alert";
-import IconButton from "@mui/joy/IconButton";
-import Typography from "@mui/joy/Typography";
+import { Box, Alert, IconButton, Typography } from "@mui/joy";
 
-export default function AlertComponent({ setShowAlert, login }) {
+export const AlertComponent = ({ setShowAlert, login }) => {
   return (
     <Box
       sx={{
@@ -50,4 +44,4 @@ export default function AlertComponent({ setShowAlert, login }) {
       </Alert>
     </Box>
   );
-}
+};

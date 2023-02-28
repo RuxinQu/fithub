@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../utils/mutations";
-import AlertComponent from "../components/Alert";
-import Sheet from "@mui/joy/Sheet";
-import Typography from "@mui/joy/Typography";
-import FormControl from "@mui/joy/FormControl";
-import FormLabel from "@mui/joy/FormLabel";
-import Input from "@mui/joy/Input";
-import Button from "@mui/joy/Button";
-import Link from "@mui/joy/Link";
+import { AlertComponent } from "../components/Alert";
+import {
+  Sheet,
+  Typography,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Link,
+} from "@mui/joy";
 import Auth from "../utils/auth";
 
 export default function Login() {
@@ -45,15 +47,7 @@ export default function Login() {
   };
 
   return (
-    <main
-      style={{
-        height: "90vh",
-        backgroundImage: "url(/assets/bg-body.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        overflow: "scroll",
-      }}
-    >
+    <main>
       <Sheet
         sx={{
           width: 300,

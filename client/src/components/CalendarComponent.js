@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-export function CalendarComponent() {
+
+export const CalendarComponent = () => {
   const [value, onChange] = useState(new Date());
 
   return (
@@ -11,4 +12,4 @@ export function CalendarComponent() {
       style={{ position: "absolute", top: 0 }}
     />
   );
-}
+};

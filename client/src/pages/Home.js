@@ -7,14 +7,7 @@ const Home = ({ height }) => {
   // keep the question mark
   const userData = data?.user;
   return (
-    <div
-      className="container-fluid d-flex flex-column align-items-center justify-content-center text-white"
-      style={{
-        height: "90vh",
-        backgroundImage: "url(/assets/bg-body.jpg)",
-        backgroundSize: "cover",
-      }}
-    >
+    <div className="container-fluid d-flex flex-column align-items-center justify-content-center text-white">
       {userData && (
         <h1
           style={{ fontSize: "4rem", fontWeight: 400 }}

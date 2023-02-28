@@ -1,6 +1,14 @@
+.App {
+  height: 100vh;
+  overflow: scroll;
+  background-image: url(./assets/bg-body.webp);
+  background-position: center;
+  background-size: cover;
+}
+
 a.nav-link {
-  display: flex;
-  align-items: center;
+  padding: 0.8rem;
+  font-size: 1.3rem;
 }
 
 .profile {

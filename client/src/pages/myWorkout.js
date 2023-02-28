@@ -3,22 +3,14 @@ import { useQuery } from "@apollo/client";
 import { GET_USER } from "../utils/queries";
 import Auth from "../utils/auth";
 import WorkoutCard from "../components/Card";
-import BasicModal from "../components/Modal";
+import { BasicModal } from "../components/Modal";
 
 export default function MyWorkouts() {
   const { loading, data } = useQuery(GET_USER);
   const userData = data?.user;
 
   return (
-    <div
-      style={{
-        height: "90vh",
-        backgroundImage: "url(/assets/bg-search.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        overflow: "scroll",
-      }}
-    >
+    <div>
       {Auth.loggedIn() ? (
         <div className="container-fluid ">
           <BasicModal />

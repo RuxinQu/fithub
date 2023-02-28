@@ -1,12 +1,8 @@
 import * as React from "react";
-import Button from "@mui/joy/Button";
-import Modal from "@mui/joy/Modal";
-import ModalClose from "@mui/joy/ModalClose";
-import Typography from "@mui/joy/Typography";
-import Sheet from "@mui/joy/Sheet";
-import { CalendarComponent } from "./Calendar";
+import { Button, Modal, ModalClose, Sheet } from "@mui/joy";
+import { CalendarComponent } from "./CalendarComponent";
 
-export default function BasicModal() {
+export const BasicModal = () => {
   const [open, setOpen] = React.useState(false);
   return (
     <React.Fragment>
@@ -49,4 +45,4 @@ export default function BasicModal() {
       </Modal>
     </React.Fragment>
   );
-}
+};

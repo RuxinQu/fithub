@@ -5,7 +5,7 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import "./index.css";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import store from "./utils/Store";
+import store from "./features/Store";
 import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

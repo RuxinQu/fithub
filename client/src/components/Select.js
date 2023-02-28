@@ -21,12 +21,7 @@ export default function SearchInput({ handleSearch, setBodypart, bodypart }) {
         <Option value="shoulders">Shoulders</Option>
         <Option value="cardio">Cardio</Option>
       </Select>
-      <Button
-        style={{ color: "#000", backgroundColor: "#CEFF00" }}
-        onClick={() => handleSearch(bodypart)}
-      >
-        Search
-      </Button>
+      <Button onClick={() => handleSearch(bodypart)}>Search</Button>
     </div>
   );
 }

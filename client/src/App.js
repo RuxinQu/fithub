@@ -12,7 +12,7 @@ import Home from "./pages/Home";
 import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Header from "./components/Header";
+import { Header } from "./components/Header";
 import SearchWorkouts from "./pages/searchWorkout";
 import MyWorkouts from "./pages/myWorkout";
 import Detail from "./pages/Detail";
@@ -40,20 +40,20 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <CssVarsProvider>
-        <Router>
-          <div>
+        <div className="App">
+          <Router>
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/workouts" element={<SearchWorkouts />} />
-              <Route path="/myworkout" element={<MyWorkouts />} />
+              <Route path="/myworkouts" element={<MyWorkouts />} />
               <Route path="/workout/detail/:workoutId" element={<Detail />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
-          </div>
-        </Router>
+          </Router>
+        </div>
       </CssVarsProvider>
     </ApolloProvider>
   );

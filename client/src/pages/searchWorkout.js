@@ -17,7 +17,6 @@ export default function SearchWorkouts() {
 
   const handleSearch = async (bodypart) => {
     try {
-      localStorage.setItem("bodypart", bodypart);
       // if api response was saved in indexedDB, no need to do api calls
       const workout = await idbPromise(bodypart, "get");
       if (workout.length) {
@@ -41,24 +40,9 @@ export default function SearchWorkouts() {
   };
   // refresh the page and data persists
   const [bodypart, setBodypart] = useState("");
-  useEffect(() => {
-    const searchedBodypart = localStorage.getItem("bodypart");
-    setBodypart(searchedBodypart);
-    if (searchedBodypart) {
-      handleSearch(searchedBodypart);
-    }
-  }, []);
 
   return (
-    <div
-      style={{
-        height: "90vh",
-        backgroundImage: "url(/assets/bg-search.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        overflow: "scroll",
-      }}
-    >
+    <div>
       <h1 className="pt-5 text-center text-white">Get started now!</h1>
       {!Auth.loggedIn() && (
         <h4 className="mt-3 text-center text-white">Login to save workouts</h4>

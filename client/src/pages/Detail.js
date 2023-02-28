@@ -6,10 +6,10 @@ import { GET_USER } from "../utils/queries";
 import { searchById } from "../utils/Api";
 import { idbPromise } from "../utils/helpers";
 import Auth from "../utils/auth";
-import Button from "@mui/joy/Button";
+import { Button, IconButton } from "@mui/joy";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 
 const style = {
   textShadow: "10px 10px 10px #000",
@@ -76,20 +76,8 @@ export default function Detail() {
     }
   };
   return (
-    <div
-      className="container-fluid "
-      style={{
-        height: "90vh",
-        backgroundImage: "url(/assets/bg-search.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        overflow: "scroll",
-      }}
-    >
-      <Button
-        style={{ marginTop: "1rem", color: "#000", backgroundColor: "#CEFF00" }}
-        onClick={() => navigate(-1)}
-      >
+    <div>
+      <Button style={{ marginTop: "1rem" }} onClick={() => navigate(-1)}>
         <ArrowBackIcon />
       </Button>
       <div className="row mt-2 d-flex align-items-center justify-content-center ">
@@ -119,17 +107,17 @@ export default function Detail() {
           {Auth.loggedIn() ? (
             <>
               {add && (
-                <Button
-                  style={{ color: "#000", backgroundColor: "#CEFF00" }}
+                <IconButton
+                  variant="solid"
                   onClick={() => handleRemoveWorkout(workoutToDisplay.id)}
                 >
-                  <FavoriteOutlinedIcon color="danger" />
-                  Already added
-                </Button>
+                  <HeartBrokenIcon color="danger" />
+                  Remove from my workout
+                </IconButton>
               )}
               {!add && (
-                <Button
-                  style={{ color: "#000", backgroundColor: "#CEFF00" }}
+                <IconButton
+                  variant="solid"
                   onClick={() =>
                     handleAddWorkout({
                       name: workoutToDisplay.name,
@@ -143,12 +131,11 @@ export default function Detail() {
                 >
                   <FavoriteBorderOutlinedIcon color="danger" />
                   Add to my workout
-                </Button>
+                </IconButton>
               )}
             </>
           ) : (
             <Button
-              style={{ color: "#000", backgroundColor: "#CEFF00" }}
               onClick={() => {
                 window.location.assign("/login");
               }}
