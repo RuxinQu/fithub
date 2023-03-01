@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectUser,
-  queryUser,
-  selectUserWorkout,
-} from "../features/userSlice";
+import { queryUser, selectUserWorkout } from "../features/userSlice";
 import {
   addWorkout,
   removeWorkout,
@@ -18,6 +14,7 @@ export const WorkoutCardContainer = ({ workout }) => {
   const dispatch = useDispatch();
   const userWorkout = useSelector(selectUserWorkout);
   const savedWorkout = useSelector(selectWorkouts);
+
   useEffect(() => {
     dispatch(queryUser());
     dispatch(updateSavedWorkout(userWorkout));

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { selectUser, queryUser } from "../features/userSlice";
 import { searchExerciseDB } from "../utils/Api";
 import Auth from "../utils/auth";
 import { idbPromise } from "../utils/helpers";
@@ -10,6 +8,7 @@ import SearchInput from "../components/Select";
 export default function SearchWorkouts() {
   const [workouts, setWorkouts] = useState([]);
   const handleSearch = async (bodypart) => {
+    localStorage.setItem("bodypart", bodypart);
     try {
       // if api response was saved in indexedDB, no need to do api calls
       const workouts = await idbPromise(bodypart, "get");
@@ -36,7 +35,9 @@ export default function SearchWorkouts() {
   // refresh the page and data persists
   const [bodypart, setBodypart] = useState("");
   useEffect(() => {
+    const bodypart = localStorage.getItem("bodypart");
     if (bodypart) {
+      setBodypart(bodypart);
       handleSearch(bodypart);
     }
   }, []);

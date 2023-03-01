@@ -21,7 +21,7 @@ export const removeWorkout = createAsyncThunk(
       variables: { workoutId: id },
       mutation: REMOVE_WORKOUT,
     });
-    console.log(response.data.removeWorkout.workouts);
+    return response.data.removeWorkout.workouts;
   }
 );
 
@@ -39,25 +39,25 @@ export const workoutSlice = createSlice({
       state.workouts = action.payload;
     },
   },
-  extraReducers: {
-    [addWorkout.pending]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(addWorkout.fulfilled, (state, action) => {
+      state.workouts = action.payload;
+    });
+    builder.addCase(removeWorkout.fulfilled, (state, action) => {
+      state.workouts = action.payload;
+    });
+    builder.addCase(addWorkout.pending, (state, action) => {
       state.isAdding = true;
-    },
-    [addWorkout.rejected]: (state, action) => {
+    });
+    builder.addCase(addWorkout.rejected, (state, action) => {
       state.failedToAdd = true;
-    },
-    [addWorkout.fulfilled]: (state, action) => {
-      state.workouts = action.payload;
-    },
-    [removeWorkout.pending]: (state, action) => {
+    });
+    builder.addCase(removeWorkout.pending, (state, action) => {
       state.isDeleting = true;
-    },
-    [removeWorkout.rejected]: (state, action) => {
+    });
+    builder.addCase(removeWorkout.rejected, (state, action) => {
       state.failedToDelete = true;
-    },
-    [removeWorkout.fulfilled]: (state, action) => {
-      state.workouts = action.payload;
-    },
+    });
   },
 });
 
