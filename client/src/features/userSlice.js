@@ -4,7 +4,6 @@ import { GET_USER } from "../utils/queries";
 
 export const queryUser = createAsyncThunk("user/queryUser", async () => {
   const response = await client.query({ query: GET_USER });
-  console.log("lll");
   return response.data.user;
 });
 

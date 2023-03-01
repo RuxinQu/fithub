@@ -43,6 +43,7 @@ export const WorkoutCardContainer = ({ workout }) => {
   // .some() method to check whether it's selected
   const saved = myWorkouts?.some((w) => w.workoutId === workout.workoutId);
   const loggedIn = Auth.loggedIn();
+
   return (
     <WorkoutCard
       workout={workout}

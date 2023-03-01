@@ -1,19 +1,9 @@
-import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { GET_USER } from "../utils/queries";
-import Auth from "../utils/auth";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
-import { useColorScheme } from "@mui/joy/styles";
-import { ButtonToggle } from "./ButtonToggle";
+import Button from "@mui/joy/Button";
 import Gravatar from "react-gravatar";
 
-export const Header = () => {
-  const { mode, setMode } = useColorScheme("light");
-  const { loading, data } = useQuery(GET_USER);
-  // keep the question mark
-  const userData = data?.user;
-
+export const Header = ({ mode, setMode, user, loggedIn, logout }) => {
   return (
     <Navbar
       bg={mode === "light" ? "light" : "dark"}
@@ -34,7 +24,7 @@ export const Header = () => {
               Search
             </Nav.Link>
 
-            {Auth.loggedIn() ? (
+            {loggedIn ? (
               <>
                 <Nav.Link
                   as={NavLink}
@@ -45,20 +35,14 @@ export const Header = () => {
                   My Workouts
                 </Nav.Link>
 
-                <Nav.Link
-                  className="profile"
-                  as={NavLink}
-                  to="/login"
-                  href="/login"
-                  onClick={() => Auth.logout()}
-                >
+                <Nav.Link className="profile" onClick={logout}>
                   Logout
                 </Nav.Link>
                 <NavDropdown
                   title={
                     <Gravatar
-                      email={userData?.email}
-                      alt={userData?.username}
+                      email={user.email}
+                      alt={user.username}
                       style={{ borderRadius: "50%", width: 30, height: 30 }}
                     />
                   }
@@ -71,14 +55,7 @@ export const Header = () => {
                   >
                     My Workouts
                   </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={NavLink}
-                    to="/login"
-                    href="/login"
-                    onClick={() => Auth.logout()}
-                  >
-                    Logout
-                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
                 </NavDropdown>
               </>
             ) : (
@@ -86,7 +63,14 @@ export const Header = () => {
                 Login
               </Nav.Link>
             )}
-            <ButtonToggle mode={mode} setMode={setMode} />
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setMode(mode === "light" ? "dark" : "light");
+              }}
+            >
+              {mode === "light" ? "Turn dark" : "Turn light"}
+            </Button>
           </Nav>
         </Navbar.Collapse>
       </Container>

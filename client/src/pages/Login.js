@@ -42,8 +42,9 @@ export default function Login() {
       const response = await login({
         variables: { email, password },
       });
-      dispatch(queryUser);
+      dispatch(queryUser());
       Auth.login(response.data.login.token);
+      navigate("/");
     } catch (err) {
       setShowAlert(true);
     }

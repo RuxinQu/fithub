@@ -6,9 +6,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   useEffect(() => {
-    dispatch(queryUser);
+    dispatch(queryUser());
   }, [user]);
-  console.log(user);
+  // console.log(user);
   return (
     <div className="container-fluid d-flex flex-column align-items-center justify-content-center text-white">
       {user.username && (

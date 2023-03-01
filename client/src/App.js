@@ -8,7 +8,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { CssVarsProvider } from "@mui/joy/styles";
-import { Header } from "./components/Header";
+import HeaderContainer from "./containers/HeaderContainer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
@@ -42,7 +42,7 @@ function App() {
       <CssVarsProvider>
         <div className="App">
           <Router>
-            <Header />
+            <HeaderContainer />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
