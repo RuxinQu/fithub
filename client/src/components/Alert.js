@@ -3,7 +3,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import * as React from "react";
 import { Box, Alert, IconButton, Typography } from "@mui/joy";
 
-export const AlertComponent = ({ setShowAlert, login }) => {
+export const AlertComponent = ({ setShowAlert, forLogin }) => {
   return (
     <Box
       sx={{
@@ -38,7 +38,7 @@ export const AlertComponent = ({ setShowAlert, login }) => {
             Error
           </Typography>
           <Typography fontSize="sm" sx={{ opacity: 0.8 }}>
-            {login ? "Login Failed!" : "Signup Failed!"}
+            {forLogin ? "Login Failed!" : "Signup Failed!"}
           </Typography>
         </div>
       </Alert>

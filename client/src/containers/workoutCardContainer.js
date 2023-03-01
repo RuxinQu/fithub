@@ -1,46 +1,16 @@
-//==============this component is being used in two pages:  searchWorkout.js and myWorkout.js==============
-import React from "react";
-import { Link } from "react-router-dom";
-import { useMutation } from "@apollo/client";
-import { SAVE_WORKOUT, REMOVE_WORKOUT } from "../utils/mutations";
-import { idbPromise } from "../utils/helpers";
-
 import { useSelector, useDispatch } from "react-redux";
 import {
-  selectWorkout,
+  selectWorkouts,
   addWorkout,
   removeWorkout,
 } from "../features/workoutSlice";
-
 import Auth from "../utils/auth";
-import {
-  AspectRatio,
-  Box,
-  Button,
-  Card,
-  IconButton,
-  Typography,
-} from "@mui/joy";
+import { WorkoutCard } from "../components/WorkoutCard";
 
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-
-export default function WorkoutCard({
-  name,
-  bodyPart,
-  equipment,
-  gifUrl,
-  workoutId,
-  target,
-  savedWorkouts,
-  add,
-  noDetailButton,
-}) {
+export const WorkoutCardContainer = ({ workout }) => {
   // select myworkout state from store obj
-  const myWorkout = useSelector(selectWorkout);
+  const myWorkouts = useSelector(selectWorkouts);
   const dispatch = useDispatch();
-  // graphql mutation to save to mongodb
-  const [saveWorkout] = useMutation(SAVE_WORKOUT);
 
   // handle add workout
   const handleAddWorkout = async (workoutToSave) => {
@@ -49,31 +19,20 @@ export default function WorkoutCard({
       return false;
     }
     try {
-      // save to mongodb
-      await saveWorkout({ variables: { input: workoutToSave } });
-      // update the state
       dispatch(addWorkout(workoutToSave));
-      // save to idb
-      idbPromise("myworkout", "add", workoutToSave);
     } catch (err) {
       console.log(err);
     }
   };
 
   // remove the workout by id
-  const [deleteWorkout] = useMutation(REMOVE_WORKOUT);
   const handleRemoveWorkout = async (workoutId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
     }
     try {
-      // save to mongodb
-      await deleteWorkout({ variables: { workoutId } });
-      // update the state
       dispatch(removeWorkout(workoutId));
-      // save to idb
-      idbPromise("myworkout", "delete", workoutId);
     } catch (err) {
       console.log(err);
     }
@@ -82,66 +41,15 @@ export default function WorkoutCard({
   // myworkout page passes a prop add to this Component, when this component is rended in myworkout page, set added to always be true,
   // so the 'like' icon only needs to handle remove workout function; otherwise, it's in search workout page, for each card, it runs
   // .some() method to check whether it's selected
-
-  const added =
-    add || savedWorkouts?.some((workout) => workout.workoutId === workoutId);
-
+  const saved = myWorkouts?.some((w) => w.workoutId === workout.workoutId);
+  const loggedIn = Auth.loggedIn();
   return (
-    <Card
-      variant="outlined"
-      className="col-12 col-md-4 col-lg-3"
-      style={{ margin: "1rem" }}
-    >
-      <Typography level="h2" fontSize="lg" sx={{ mb: 1 }}>
-        {name}
-      </Typography>
-      <Typography level="body2">
-        <Button variant="soft">{target}</Button>
-      </Typography>
-      {Auth.loggedIn() && (
-        <IconButton
-          // if the card is selected, added is true, click event will trigger handleRemoveWorkout function
-          onClick={() => {
-            if (added) {
-              handleRemoveWorkout(workoutId);
-            } else {
-              handleAddWorkout({
-                name,
-                bodyPart,
-                equipment,
-                gifUrl,
-                workoutId,
-                target,
-              });
-            }
-          }}
-          variant="plain"
-          sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}
-        >
-          {added ? (
-            <FavoriteOutlinedIcon color="danger" />
-          ) : (
-            <FavoriteBorderOutlinedIcon color="danger" />
-          )}
-        </IconButton>
-      )}
-
-      <AspectRatio minHeight="120px" maxHeight="200px" sx={{ my: 2 }}>
-        <img src={gifUrl} loading="lazy" alt={name} />
-      </AspectRatio>
-      {!noDetailButton && (
-        <Box sx={{ display: "flex" }}>
-          <Link
-            aria-label="Explore Bahamas Islands"
-            sx={{ ml: "auto", fontWeight: 600 }}
-            // // link to the detail page
-            to={`/workout/detail/${workoutId}`}
-            style={{ textDecoration: "none" }}
-          >
-            Detail
-          </Link>
-        </Box>
-      )}
-    </Card>
+    <WorkoutCard
+      workout={workout}
+      handleAddWorkout={handleAddWorkout}
+      handleRemoveWorkout={handleRemoveWorkout}
+      saved={saved}
+      loggedIn={loggedIn}
+    />
   );
-}
+};

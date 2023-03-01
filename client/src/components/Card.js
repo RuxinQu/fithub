@@ -7,7 +7,7 @@ import { idbPromise } from "../utils/helpers";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  selectWorkout,
+  selectWorkouts,
   addWorkout,
   removeWorkout,
 } from "../features/workoutSlice";
@@ -37,7 +37,7 @@ export default function WorkoutCard({
   noDetailButton,
 }) {
   // select myworkout state from store obj
-  const myWorkout = useSelector(selectWorkout);
+  const myWorkout = useSelector(selectWorkouts);
   const dispatch = useDispatch();
   // graphql mutation to save to mongodb
   const [saveWorkout] = useMutation(SAVE_WORKOUT);

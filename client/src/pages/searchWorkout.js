@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import { GET_USER } from "../utils/queries";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, queryUser } from "../features/userSlice";
 import { searchExerciseDB } from "../utils/Api";
 import Auth from "../utils/auth";
 import { idbPromise } from "../utils/helpers";
-import WorkoutCard from "../components/Card";
+import { WorkoutCardContainer } from "../containers/WorkoutCardContainer";
 import SearchInput from "../components/Select";
 
 export default function SearchWorkouts() {
   // declare state to store the api response
   const [workouts, setWorkouts] = useState([]);
   //get user saved workout data
-  const { loading, data } = useQuery(GET_USER);
-  const userData = data?.user;
-  const savedWorkouts = userData?.workouts;
+  const dispatch = useDispatch();
 
+  // const user = useSelector(selectUser);
+  dispatch(queryUser());
+  // console.log(user);
   const handleSearch = async (bodypart) => {
     try {
       // if api response was saved in indexedDB, no need to do api calls
-      const workout = await idbPromise(bodypart, "get");
-      if (workout.length) {
+      const workouts = await idbPromise(bodypart, "get");
+      if (workouts.length) {
         console.log("========retrieving data from idb========");
-        setWorkouts(workout);
+        setWorkouts(workouts);
         return;
       } else {
         const response = await searchExerciseDB(bodypart);
@@ -38,8 +39,14 @@ export default function SearchWorkouts() {
       console.log(err);
     }
   };
+
   // refresh the page and data persists
   const [bodypart, setBodypart] = useState("");
+  useEffect(() => {
+    if (bodypart) {
+      handleSearch(bodypart);
+    }
+  }, []);
 
   return (
     <div>
@@ -56,16 +63,7 @@ export default function SearchWorkouts() {
         <div className="mt-5 row d-flex justify-content-center">
           {workouts &&
             workouts.map((workout) => (
-              <WorkoutCard
-                key={workout.id}
-                name={workout.name}
-                bodyPart={workout.bodyPart}
-                equipment={workout.equipment}
-                gifUrl={workout.gifUrl}
-                workoutId={workout.id}
-                target={workout.target}
-                savedWorkouts={savedWorkouts}
-              />
+              <WorkoutCardContainer key={workout.id} workout={workout} />
             ))}
         </div>
       </div>

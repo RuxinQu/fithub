@@ -1,9 +1,10 @@
-//this file is currently not being used, but save it for future development
 import { configureStore } from "@reduxjs/toolkit";
 import workoutReducer from "./workoutSlice";
+import userReducer from "./userSlice";
 
 export default configureStore({
   reducer: {
     workout: workoutReducer,
+    user: userReducer,
   },
 });

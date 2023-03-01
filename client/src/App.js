@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   ApolloClient,
@@ -8,14 +8,14 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { CssVarsProvider } from "@mui/joy/styles";
-import Home from "./pages/Home";
-import NoMatch from "./pages/NoMatch";
+import { Header } from "./components/Header";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import { Header } from "./components/Header";
+import Home from "./pages/Home";
 import SearchWorkouts from "./pages/searchWorkout";
 import MyWorkouts from "./pages/myWorkout";
 import Detail from "./pages/Detail";
+import NoMatch from "./pages/NoMatch";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -31,7 +31,7 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });

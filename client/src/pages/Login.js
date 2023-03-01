@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../utils/mutations";
 import { AlertComponent } from "../components/Alert";
@@ -12,6 +14,7 @@ import {
   Link,
 } from "@mui/joy";
 import Auth from "../utils/auth";
+import { queryUser } from "../features/userSlice";
 
 export default function Login() {
   const [showAlert, setShowAlert] = useState(false);
@@ -29,18 +32,18 @@ export default function Login() {
       [name]: value,
     });
   };
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // handle form submit, create a token and save to localStorage
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await login({
-        variables: {
-          email,
-          password,
-        },
+        variables: { email, password },
       });
-      const token = response.data.login.token;
-      Auth.login(token);
+      dispatch(queryUser);
+      Auth.login(response.data.login.token);
     } catch (err) {
       setShowAlert(true);
     }
@@ -104,7 +107,9 @@ export default function Login() {
           Don&apos;t have an account?
         </Typography>
       </Sheet>
-      {showAlert && <AlertComponent setShowAlert={setShowAlert} login={true} />}
+      {showAlert && (
+        <AlertComponent setShowAlert={setShowAlert} forLogin={true} />
+      )}
     </main>
   );
 }

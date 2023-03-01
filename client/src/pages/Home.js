@@ -1,19 +1,22 @@
-import React from "react";
-import { useQuery } from "@apollo/client";
-import { GET_USER } from "../utils/queries";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, queryUser } from "../features/userSlice";
 
-const Home = ({ height }) => {
-  const { loading, data } = useQuery(GET_USER);
-  // keep the question mark
-  const userData = data?.user;
+const Home = () => {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  useEffect(() => {
+    dispatch(queryUser);
+  }, [user]);
+  console.log(user);
   return (
     <div className="container-fluid d-flex flex-column align-items-center justify-content-center text-white">
-      {userData && (
+      {user.username && (
         <h1
           style={{ fontSize: "4rem", fontWeight: 400 }}
           className="text-center"
         >
-          Let's go {userData.username}!
+          Let's go {user.username}!
         </h1>
       )}
       <h1

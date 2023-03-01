@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { SIGNUP } from "../utils/mutations";
 import { AlertComponent } from "../components/Alert";
@@ -15,7 +16,6 @@ import Auth from "../utils/auth";
 
 export default function Signup() {
   const [showAlert, setShowAlert] = useState(false);
-
   const [formState, setFormState] = useState({
     username: "",
     email: "",
@@ -32,6 +32,7 @@ export default function Signup() {
       [name]: value,
     });
   };
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -45,6 +46,7 @@ export default function Signup() {
       // get the token from the response and save to localStorage
       const token = response.data.signup.token;
       Auth.login(token);
+      navigate("/");
     } catch (err) {
       setShowAlert(true);
     }

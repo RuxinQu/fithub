@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   AspectRatio,
   Box,
@@ -9,7 +10,13 @@ import {
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 
-export const WorkoutCard = ({ workout, loggedIn, saved, showDetail }) => {
+export const WorkoutCard = ({
+  workout,
+  loggedIn,
+  saved,
+  handleAddWorkout,
+  handleRemoveWorkout,
+}) => {
   return (
     <Card
       variant="outlined"
@@ -35,7 +42,7 @@ export const WorkoutCard = ({ workout, loggedIn, saved, showDetail }) => {
           variant="plain"
           sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}
         >
-          {added ? (
+          {saved ? (
             <FavoriteOutlinedIcon color="danger" />
           ) : (
             <FavoriteBorderOutlinedIcon color="danger" />
@@ -47,18 +54,16 @@ export const WorkoutCard = ({ workout, loggedIn, saved, showDetail }) => {
         <img src={workout.gifUrl} loading="lazy" alt={workout.name} />
       </AspectRatio>
 
-      {showDetail && (
-        <Box sx={{ display: "flex" }}>
-          <Link
-            sx={{ ml: "auto", fontWeight: 600 }}
-            // // link to the detail page
-            to={`/workout/detail/${workout.workoutId}`}
-            style={{ textDecoration: "none" }}
-          >
-            Detail
-          </Link>
-        </Box>
-      )}
+      <Box sx={{ display: "flex" }}>
+        <Link
+          sx={{ ml: "auto", fontWeight: 600 }}
+          // // link to the detail page
+          to={`/workout/detail/${workout.workoutId}`}
+          style={{ textDecoration: "none" }}
+        >
+          Detail
+        </Link>
+      </Box>
     </Card>
   );
 };
