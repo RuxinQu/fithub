@@ -8,7 +8,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(queryUser());
   }, [user]);
-  // console.log(user);
+
   return (
     <div className="container-fluid d-flex flex-column align-items-center justify-content-center text-white">
       {user.username && (

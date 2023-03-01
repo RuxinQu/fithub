@@ -26,6 +26,7 @@ export const Header = ({ mode, setMode, user, loggedIn, logout }) => {
 
             {loggedIn ? (
               <>
+                {/* for small screens */}
                 <Nav.Link
                   as={NavLink}
                   to="/myworkouts"
@@ -38,6 +39,8 @@ export const Header = ({ mode, setMode, user, loggedIn, logout }) => {
                 <Nav.Link className="profile" onClick={logout}>
                   Logout
                 </Nav.Link>
+
+                {/* for bigger screens */}
                 <NavDropdown
                   title={
                     <Gravatar

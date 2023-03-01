@@ -8,6 +8,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { CssVarsProvider } from "@mui/joy/styles";
+
 import HeaderContainer from "./containers/HeaderContainer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";

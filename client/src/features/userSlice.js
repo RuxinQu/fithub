@@ -21,5 +21,5 @@ export const userSlice = createSlice({
 });
 
 export const selectUser = (state) => state.user.user;
-
+export const selectUserWorkout = (state) => state.user.user.workouts;
 export default userSlice.reducer;

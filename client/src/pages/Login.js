@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../utils/mutations";
 import { AlertComponent } from "../components/Alert";
@@ -33,7 +32,6 @@ export default function Login() {
     });
   };
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   // handle form submit, create a token and save to localStorage
   const handleSubmit = async (event) => {
@@ -44,7 +42,6 @@ export default function Login() {
       });
       dispatch(queryUser());
       Auth.login(response.data.login.token);
-      navigate("/");
     } catch (err) {
       setShowAlert(true);
     }

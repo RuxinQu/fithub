@@ -1,16 +1,27 @@
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  selectWorkouts,
+  selectUser,
+  queryUser,
+  selectUserWorkout,
+} from "../features/userSlice";
+import {
   addWorkout,
   removeWorkout,
+  selectWorkouts,
+  updateSavedWorkout,
 } from "../features/workoutSlice";
 import Auth from "../utils/auth";
 import { WorkoutCard } from "../components/WorkoutCard";
 
 export const WorkoutCardContainer = ({ workout }) => {
-  // select myworkout state from store obj
-  const myWorkouts = useSelector(selectWorkouts);
   const dispatch = useDispatch();
+  const userWorkout = useSelector(selectUserWorkout);
+  const savedWorkout = useSelector(selectWorkouts);
+  useEffect(() => {
+    dispatch(queryUser());
+    dispatch(updateSavedWorkout(userWorkout));
+  }, [userWorkout]);
 
   // handle add workout
   const handleAddWorkout = async (workoutToSave) => {
@@ -41,7 +52,8 @@ export const WorkoutCardContainer = ({ workout }) => {
   // myworkout page passes a prop add to this Component, when this component is rended in myworkout page, set added to always be true,
   // so the 'like' icon only needs to handle remove workout function; otherwise, it's in search workout page, for each card, it runs
   // .some() method to check whether it's selected
-  const saved = myWorkouts?.some((w) => w.workoutId === workout.workoutId);
+
+  const saved = savedWorkout.some((w) => w.id === workout.id);
   const loggedIn = Auth.loggedIn();
 
   return (

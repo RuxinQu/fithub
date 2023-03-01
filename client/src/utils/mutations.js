@@ -23,7 +23,7 @@ export const SIGNUP = gql`
 `;
 
 export const SAVE_WORKOUT = gql`
-  mutation Mutation($input: workout!) {
+  mutation SaveWorkout($input: workout!) {
     saveWorkout(input: $input) {
       _id
       username
@@ -32,7 +32,7 @@ export const SAVE_WORKOUT = gql`
         bodyPart
         equipment
         gifUrl
-        workoutId
+        id
         name
         target
       }
@@ -50,7 +50,7 @@ export const REMOVE_WORKOUT = gql`
         bodyPart
         equipment
         gifUrl
-        workoutId
+        id
         name
         target
       }

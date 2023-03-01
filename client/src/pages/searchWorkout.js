@@ -8,14 +8,7 @@ import { WorkoutCardContainer } from "../containers/WorkoutCardContainer";
 import SearchInput from "../components/Select";
 
 export default function SearchWorkouts() {
-  // declare state to store the api response
   const [workouts, setWorkouts] = useState([]);
-  //get user saved workout data
-  const dispatch = useDispatch();
-
-  // const user = useSelector(selectUser);
-  dispatch(queryUser());
-  // console.log(user);
   const handleSearch = async (bodypart) => {
     try {
       // if api response was saved in indexedDB, no need to do api calls

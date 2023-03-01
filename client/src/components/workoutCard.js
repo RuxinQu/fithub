@@ -34,7 +34,7 @@ export const WorkoutCard = ({
           // if the card is selected, saved is true, click event will trigger handleRemoveWorkout function
           onClick={() => {
             if (saved) {
-              handleRemoveWorkout(workout.workoutId);
+              handleRemoveWorkout(workout.id);
             } else {
               handleAddWorkout(workout);
             }
@@ -58,7 +58,7 @@ export const WorkoutCard = ({
         <Link
           sx={{ ml: "auto", fontWeight: 600 }}
           // // link to the detail page
-          to={`/workout/detail/${workout.workoutId}`}
+          to={`/workout/detail/${workout.id}`}
           style={{ textDecoration: "none" }}
         >
           Detail
