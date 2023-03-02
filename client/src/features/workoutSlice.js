@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { useMutation } from "@apollo/client";
 import { client } from "../App";
 import { SAVE_WORKOUT, REMOVE_WORKOUT } from "../utils/mutations";
 

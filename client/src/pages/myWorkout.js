@@ -1,32 +1,34 @@
-import React from "react";
-import { useQuery } from "@apollo/client";
-import { GET_USER } from "../utils/queries";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSavedWorkout, selectWorkouts } from "../features/workoutSlice";
+import { selectUser, queryUser } from "../features/userSlice";
 import Auth from "../utils/auth";
-import WorkoutCard from "../components/Card";
 import { BasicModal } from "../components/Modal";
+import { WorkoutCardContainer } from "../containers/WorkoutCardContainer";
 
 export default function MyWorkouts() {
-  const { loading, data } = useQuery(GET_USER);
-  const userData = data?.user;
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const savedWorkout = useSelector(selectWorkouts);
+  useEffect(() => {
+    dispatch(queryUser());
+    dispatch(updateSavedWorkout(user.workouts));
+  }, [user]);
 
+  const loggedIn = Auth.loggedIn();
   return (
     <div>
-      {Auth.loggedIn() ? (
+      {loggedIn ? (
         <div className="container-fluid ">
           <BasicModal />
           <h1 className="text-center text-white">My Workouts</h1>
           <div className="mt-5 row d-flex justify-content-center">
-            {userData?.workouts.length ? (
-              userData?.workouts.map((workout) => (
-                <WorkoutCard
-                  key={workout.workoutId}
-                  name={workout.name}
-                  bodyPart={workout.bodyPart}
-                  equipment={workout.equipment}
-                  gifUrl={workout.gifUrl}
-                  workoutId={workout.workoutId}
-                  target={workout.target}
-                  add={true}
+            {savedWorkout?.length ? (
+              savedWorkout.map((workout) => (
+                <WorkoutCardContainer
+                  key={workout.id}
+                  workout={workout}
+                  saved={true}
                 />
               ))
             ) : (
