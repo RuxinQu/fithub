@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { SIGNUP } from "../utils/mutations";
-import { AlertComponent } from "../components/Alert";
+import { AuthAlert } from "../components/AuthAlert";
 import {
   Sheet,
   Typography,
@@ -117,7 +117,7 @@ export default function Signup() {
           Already have an account?
         </Typography>
       </Sheet>
-      {showAlert && <AlertComponent setShowAlert={setShowAlert} />}
+      {showAlert && <AuthAlert setShowAlert={setShowAlert} />}
     </main>
   );
 }

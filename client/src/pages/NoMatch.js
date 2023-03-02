@@ -1,9 +1,8 @@
 import React from "react";
 import Button from "@mui/joy/Button";
-
 import { useNavigate } from "react-router-dom";
 
-const NoMatch = () => {
+export default function NoMatch() {
   const navigate = useNavigate();
   return (
     <div className="d-flex flex-column justify-content-center align-items-center text-white">
@@ -18,6 +17,4 @@ const NoMatch = () => {
       </Button>
     </div>
   );
-};
-
-export default NoMatch;
+}

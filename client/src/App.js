@@ -13,7 +13,7 @@ import HeaderContainer from "./containers/HeaderContainer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
-import SearchWorkouts from "./pages/searchWorkout";
+import SearchWorkouts from "./pages/searchWorkouts";
 import MyWorkouts from "./pages/myWorkout";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";

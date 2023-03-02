@@ -1,11 +1,12 @@
-import * as React from "react";
+import React, { useState, Fragment } from "react";
+import Calendar from "react-calendar";
 import { Button, Modal, ModalClose, Sheet } from "@mui/joy";
-import { CalendarComponent } from "./CalendarComponent";
-
-export const BasicModal = () => {
-  const [open, setOpen] = React.useState(false);
+import "react-calendar/dist/Calendar.css";
+export const ToggleCalendar = () => {
+  const [open, setOpen] = useState(false);
+  const [value, onChange] = useState(new Date());
   return (
-    <React.Fragment>
+    <Fragment>
       <Button
         sx={{ marginTop: 2 }}
         variant="soft"
@@ -40,9 +41,13 @@ export const BasicModal = () => {
               bgcolor: "background.body",
             }}
           />
-          <CalendarComponent />
+          <Calendar
+            onChange={onChange}
+            value={value}
+            style={{ position: "absolute", top: 0 }}
+          />
         </Sheet>
       </Modal>
-    </React.Fragment>
+    </Fragment>
   );
 };

@@ -6,7 +6,7 @@ import { searchExerciseDB } from "../utils/Api";
 import Auth from "../utils/auth";
 import { idbPromise } from "../utils/helpers";
 import { WorkoutCardContainer } from "../containers/WorkoutCardContainer";
-import SearchInput from "../components/Select";
+import { SearchInput } from "../components/SearchInput";
 
 export default function SearchWorkouts() {
   const dispatch = useDispatch();
@@ -61,8 +61,8 @@ export default function SearchWorkouts() {
         <h4 className="mt-3 text-center text-white">Login to save workouts</h4>
       )}
       <SearchInput
-        handleSearch={handleSearch}
         bodypart={bodypart}
+        handleSearch={handleSearch}
         setBodypart={setBodypart}
       />
       <div className="container-fluid ">
@@ -72,7 +72,7 @@ export default function SearchWorkouts() {
               <WorkoutCardContainer
                 key={workout.id}
                 workout={workout}
-                saved={savedWorkout.some((w) => w.id === workout.id)}
+                saved={savedWorkout?.some((w) => w.id === workout.id)}
               />
             ))}
         </div>

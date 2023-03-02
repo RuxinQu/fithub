@@ -6,6 +6,11 @@
   background-size: cover;
 }
 
+.home {
+  height: 80% !important;
+  color: #d0d0d0;
+}
+
 a.nav-link {
   padding: 0.8rem;
   font-size: 1.3rem;
@@ -16,6 +21,9 @@ a.nav-link {
 }
 
 @media (max-width: 992px) {
+  h1 {
+    font-size: 2rem !important;
+  }
   .dropdown {
     display: none !important;
   }

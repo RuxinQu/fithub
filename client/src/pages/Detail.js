@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useQuery, useMutation } from "@apollo/client";
-import { SAVE_WORKOUT, REMOVE_WORKOUT } from "../utils/mutations";
-import { GET_USER } from "../utils/queries";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSavedWorkout, selectWorkouts } from "../features/workoutSlice";
+import { selectUser, queryUser } from "../features/userSlice";
+import { useParams } from "react-router-dom";
+
 import { searchById } from "../utils/Api";
 import { idbPromise } from "../utils/helpers";
+import { WorkoutCardContainer } from "../containers/WorkoutCardContainer";
 import Auth from "../utils/auth";
 import { Button, IconButton } from "@mui/joy";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -17,18 +19,22 @@ const style = {
 };
 
 export default function Detail() {
-  const navigate = useNavigate();
-  let { workoutId } = useParams();
+  const { workoutId } = useParams();
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const savedWorkout = useSelector(selectWorkouts);
+  useEffect(() => {
+    dispatch(queryUser());
+    dispatch(updateSavedWorkout(user.workouts));
+  }, [user]);
+
   const [workoutToDisplay, setWorkoutToDisplay] = useState({});
-  const { loading, data } = useQuery(GET_USER);
-  const userData = data?.user;
-  const savedWorkouts = userData?.workouts;
-  const add = savedWorkouts?.some((workout) => workout.workoutId === workoutId);
+
   useEffect(() => {
     async function getWorkoutDetail() {
       try {
-        const workout = await idbPromise("detail", "getOne", workoutId);
-        if (!workout) {
+        const localWorkout = await idbPromise("detail", "getOne", workoutId);
+        if (!localWorkout) {
           console.log("========making an api call to exerciseDB========");
           const response = await searchById(workoutId);
           const jsonResponse = await response.json();
@@ -36,7 +42,7 @@ export default function Detail() {
           setWorkoutToDisplay(jsonResponse);
         } else {
           console.log("========retrieving data from idb========");
-          setWorkoutToDisplay(workout);
+          setWorkoutToDisplay(localWorkout);
         }
       } catch (err) {
         console.log(err);
@@ -45,106 +51,13 @@ export default function Detail() {
     getWorkoutDetail();
   }, []);
 
-  // handle add workout and remove workout
-  const [saveWorkout] = useMutation(SAVE_WORKOUT);
-  const handleAddWorkout = async (workoutToSave) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) {
-      return false;
-    }
-    try {
-      // save to mongodb
-      await saveWorkout({ variables: { input: workoutToSave } });
-      idbPromise("myworkout", "add", workoutToSave);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const saved = savedWorkout?.some((w) => w.id === workoutToDisplay.id);
 
-  const [deleteWorkout] = useMutation(REMOVE_WORKOUT);
-  const handleRemoveWorkout = async (workoutId) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) {
-      return false;
-    }
-    try {
-      // save to mongodb
-      await deleteWorkout({ variables: { workoutId } });
-      idbPromise("myworkout", "delete", workoutId);
-    } catch (err) {
-      console.log(err);
-    }
-  };
   return (
-    <div>
-      <Button style={{ marginTop: "1rem" }} onClick={() => navigate(-1)}>
-        <ArrowBackIcon />
-      </Button>
-      <div className="row mt-2 d-flex align-items-center justify-content-center ">
-        <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
-          <img
-            alt={workoutToDisplay.name}
-            src={workoutToDisplay.gifUrl}
-            style={{ width: "80%", borderRadius: 15 }}
-          />
-        </div>
-        <div
-          className="col-12 col-md-6 text-white "
-          style={{ fontSize: "1.5rem" }}
-        >
-          <h1
-            style={{
-              fontWeight: 600,
-              textShadow: "10px 10px 10px #000",
-              color: "#fff",
-            }}
-          >
-            {workoutToDisplay.name}
-          </h1>
-          <p style={style}>Equipment: {workoutToDisplay.equipment}</p>
-          <p style={style}>Body part: {workoutToDisplay.bodyPart}</p>
-          <p style={style}>Target: {workoutToDisplay.target}</p>
-          {Auth.loggedIn() ? (
-            <>
-              {add && (
-                <IconButton
-                  variant="solid"
-                  onClick={() => handleRemoveWorkout(workoutToDisplay.id)}
-                >
-                  <HeartBrokenIcon color="danger" />
-                  Remove from my workout
-                </IconButton>
-              )}
-              {!add && (
-                <IconButton
-                  variant="solid"
-                  onClick={() =>
-                    handleAddWorkout({
-                      name: workoutToDisplay.name,
-                      bodyPart: workoutToDisplay.bodyPart,
-                      equipment: workoutToDisplay.equipment,
-                      gifUrl: workoutToDisplay.gifUrl,
-                      workoutId: workoutToDisplay.id,
-                      target: workoutToDisplay.target,
-                    })
-                  }
-                >
-                  <FavoriteBorderOutlinedIcon color="danger" />
-                  Add to my workout
-                </IconButton>
-              )}
-            </>
-          ) : (
-            <Button
-              onClick={() => {
-                window.location.assign("/login");
-              }}
-            >
-              Login to save workouts
-            </Button>
-          )}
-        </div>
-      </div>
-    </div>
+    <WorkoutCardContainer
+      renderDetail={true}
+      saved={saved}
+      workout={workoutToDisplay}
+    />
   );
 }

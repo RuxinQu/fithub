@@ -1,10 +1,10 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import { addWorkout, removeWorkout } from "../features/workoutSlice";
 import Auth from "../utils/auth";
 import { WorkoutCard } from "../components/WorkoutCard";
+import { WorkoutDetail } from "../components/WorkoutDetail";
 
-export const WorkoutCardContainer = ({ workout, saved }) => {
+export const WorkoutCardContainer = ({ workout, saved, renderDetail }) => {
   const dispatch = useDispatch();
 
   // handle add workout
@@ -39,7 +39,15 @@ export const WorkoutCardContainer = ({ workout, saved }) => {
   // const saved = savedWorkout.some((w) => w.id === workout.id);
   const loggedIn = Auth.loggedIn();
 
-  return (
+  return renderDetail ? (
+    <WorkoutDetail
+      workout={workout}
+      handleAddWorkout={handleAddWorkout}
+      handleRemoveWorkout={handleRemoveWorkout}
+      saved={saved}
+      loggedIn={loggedIn}
+    />
+  ) : (
     <WorkoutCard
       workout={workout}
       handleAddWorkout={handleAddWorkout}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../utils/mutations";
-import { AlertComponent } from "../components/Alert";
+import { AuthAlert } from "../components/AuthAlert";
 import {
   Sheet,
   Typography,
@@ -105,9 +105,7 @@ export default function Login() {
           Don&apos;t have an account?
         </Typography>
       </Sheet>
-      {showAlert && (
-        <AlertComponent setShowAlert={setShowAlert} forLogin={true} />
-      )}
+      {showAlert && <AuthAlert setShowAlert={setShowAlert} forLogin={true} />}
     </main>
   );
 }

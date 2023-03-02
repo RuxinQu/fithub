@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSavedWorkout, selectWorkouts } from "../features/workoutSlice";
 import { selectUser, queryUser } from "../features/userSlice";
 import Auth from "../utils/auth";
-import { BasicModal } from "../components/Modal";
+import { ToggleCalendar } from "../components/Modal";
 import { WorkoutCardContainer } from "../containers/WorkoutCardContainer";
 
 export default function MyWorkouts() {
@@ -20,7 +20,7 @@ export default function MyWorkouts() {
     <div>
       {loggedIn ? (
         <div className="container-fluid ">
-          <BasicModal />
+          <ToggleCalendar />
           <h1 className="text-center text-white">My Workouts</h1>
           <div className="mt-5 row d-flex justify-content-center">
             {savedWorkout?.length ? (

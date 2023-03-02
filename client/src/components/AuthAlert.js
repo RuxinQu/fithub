@@ -3,7 +3,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import * as React from "react";
 import { Box, Alert, IconButton, Typography } from "@mui/joy";
 
-export const AlertComponent = ({ setShowAlert, forLogin }) => {
+export const AuthAlert = ({ setShowAlert, forLogin }) => {
   return (
     <Box
       sx={{
