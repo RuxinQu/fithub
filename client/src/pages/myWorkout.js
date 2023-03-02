@@ -1,49 +1,44 @@
-import React from "react";
-import { useQuery } from "@apollo/client";
-import { GET_USER } from "../utils/queries";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSavedWorkout, selectWorkouts } from "../features/workoutSlice";
+import { selectUser, queryUser } from "../features/userSlice";
 import Auth from "../utils/auth";
-import WorkoutCard from "../components/Card";
-import BasicModal from "../components/Modal";
+
+import { ToggleCalendar } from "../components/ToggleCalendar";
+import { WorkoutCardContainer } from "../containers/WorkoutCardContainer";
 
 export default function MyWorkouts() {
-  const { loading, data } = useQuery(GET_USER);
-  const userData = data?.user;
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const savedWorkout = useSelector(selectWorkouts);
+  useEffect(() => {
+    dispatch(queryUser());
+    dispatch(updateSavedWorkout(user.workouts));
+  }, [user]);
 
+  const loggedIn = Auth.loggedIn();
   return (
-    <div
-      style={{
-        height: "90vh",
-        backgroundImage: "url(/assets/bg-search.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        overflow: "scroll",
-      }}
-    >
-      {Auth.loggedIn() ? (
+    <div>
+      {loggedIn ? (
         <div className="container-fluid ">
-          <BasicModal />
-          <h1 className="text-center text-white">My Workouts</h1>
+          <ToggleCalendar />
+          <h2 className="text-center text-shadow">My Workouts</h2>
           <div className="mt-5 row d-flex justify-content-center">
-            {userData?.workouts.length ? (
-              userData?.workouts.map((workout) => (
-                <WorkoutCard
-                  key={workout.workoutId}
-                  name={workout.name}
-                  bodyPart={workout.bodyPart}
-                  equipment={workout.equipment}
-                  gifUrl={workout.gifUrl}
-                  workoutId={workout.workoutId}
-                  target={workout.target}
-                  add={true}
+            {savedWorkout?.length ? (
+              savedWorkout.map((workout) => (
+                <WorkoutCardContainer
+                  key={workout.id}
+                  workout={workout}
+                  saved={true}
                 />
               ))
             ) : (
-              <h2 className="mt-5 text-center text-white">No saved workout</h2>
+              <h4 className="mt-5 text-center text-shadow">No saved workout</h4>
             )}
           </div>
         </div>
       ) : (
-        <h1 className="mt-5 text-center text-white">You need to login!</h1>
+        <h2 className="mt-5 text-center text-shadow">You need to login!</h2>
       )}
     </div>
   );

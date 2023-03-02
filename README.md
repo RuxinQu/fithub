@@ -21,7 +21,8 @@ The motivation for this app is for all users to find a fitness program and exerc
 
 1. Run `git clone git@github.com:RuxinQu/fithub.git` to clone the repo
 2. Run `npm i` to install all the dependencies.
-3. Run `npm run develop` to start the project.
+3. Add environment variable `REACT_APP_apiKey` with the value of your Api key from ExerciseDB to the .env file
+4. Run `npm run develop` to start the project.
 
 ## Usage
 

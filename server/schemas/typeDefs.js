@@ -5,7 +5,7 @@ const typeDefs = gql`
     bodyPart: String
     equipment: String
     gifUrl: String
-    workoutId: String
+    id: String
     name: String
     target: String
   }
@@ -14,7 +14,7 @@ const typeDefs = gql`
     bodyPart: String
     equipment: String
     gifUrl: String
-    workoutId: String
+    id: String
     name: String
     target: String
   }

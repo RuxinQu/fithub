@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import Select from "@mui/joy/Select";
-import Option from "@mui/joy/Option";
-import Button from "@mui/joy/Button";
-export default function SearchInput({ handleSearch, setBodypart, bodypart }) {
-  // const [value, setValue] = useState("");
+import React from "react";
+import { Select, Option, Button } from "@mui/joy";
 
+export const SearchInput = ({ handleSearch, setBodypart, bodypart }) => {
   return (
     <div
       className="container-fluid d-flex justify-content-center"
@@ -21,12 +18,7 @@ export default function SearchInput({ handleSearch, setBodypart, bodypart }) {
         <Option value="shoulders">Shoulders</Option>
         <Option value="cardio">Cardio</Option>
       </Select>
-      <Button
-        style={{ color: "#000", backgroundColor: "#CEFF00" }}
-        onClick={() => handleSearch(bodypart)}
-      >
-        Search
-      </Button>
+      <Button onClick={() => handleSearch(bodypart)}>Search</Button>
     </div>
   );
-}
+};

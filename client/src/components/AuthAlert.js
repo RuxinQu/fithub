@@ -1,15 +1,9 @@
-import InfoIcon from "@mui/icons-material/Info";
-import WarningIcon from "@mui/icons-material/Warning";
 import ReportIcon from "@mui/icons-material/Report";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import * as React from "react";
-import Box from "@mui/joy/Box";
-import Alert from "@mui/joy/Alert";
-import IconButton from "@mui/joy/IconButton";
-import Typography from "@mui/joy/Typography";
+import { Box, Alert, IconButton, Typography } from "@mui/joy";
 
-export default function AlertComponent({ setShowAlert, login }) {
+export const AuthAlert = ({ setShowAlert, forLogin }) => {
   return (
     <Box
       sx={{
@@ -44,10 +38,10 @@ export default function AlertComponent({ setShowAlert, login }) {
             Error
           </Typography>
           <Typography fontSize="sm" sx={{ opacity: 0.8 }}>
-            {login ? "Login Failed!" : "Signup Failed!"}
+            {forLogin ? "Login Failed!" : "Signup Failed!"}
           </Typography>
         </div>
       </Alert>
     </Box>
   );
-}
+};

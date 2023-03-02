@@ -1,6 +1,37 @@
+.App {
+  height: 100vh;
+  overflow: scroll;
+  background-image: url(./assets/bg-body.webp);
+  background-position: center;
+  background-size: cover;
+  color: #dedede;
+}
+
+.text-shadow {
+  text-shadow: 5px 5px 5px #000 !important;
+}
+
+.home h1 {
+  font-size: 4rem !important;
+}
+
+h3 {
+  font-size: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.detail-text p {
+  font-size: 1.2rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
 a.nav-link {
-  display: flex;
-  align-items: center;
+  padding: 0.8rem;
+  font-size: 1.3rem;
+}
+
+.home {
+  height: 80% !important;
 }
 
 .profile {
@@ -8,10 +39,26 @@ a.nav-link {
 }
 
 @media (max-width: 992px) {
+  a.nav-link {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  .home h1 {
+    font-size: 2.5rem !important;
+  }
   .dropdown {
     display: none !important;
   }
   .profile {
     display: block !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .detail-text {
+    text-align: center !important;
+    margin-top: 1rem !important;
+    margin-bottom: 2rem !important;
+    font-size: 1rem !important;
   }
 }

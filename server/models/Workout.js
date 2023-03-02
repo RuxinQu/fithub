@@ -13,7 +13,7 @@ const workoutSchema = new Schema({
   gifUrl: {
     type: String,
   },
-  workoutId: {
+  id: {
     type: String,
     required: true,
   },

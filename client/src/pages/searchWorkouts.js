@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import { GET_USER } from "../utils/queries";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, queryUser } from "../features/userSlice";
+import { selectWorkouts, updateSavedWorkout } from "../features/workoutSlice";
+
 import { searchExerciseDB } from "../utils/Api";
 import Auth from "../utils/auth";
 import { idbPromise } from "../utils/helpers";
-import WorkoutCard from "../components/Card";
-import SearchInput from "../components/Select";
+
+import { SearchInput } from "../components/SearchInput";
+import { WorkoutCardContainer } from "../containers/WorkoutCardContainer";
 
 export default function SearchWorkouts() {
-  // declare state to store the api response
+  const dispatch = useDispatch();
+  //search workouts by bodypart
   const [workouts, setWorkouts] = useState([]);
-  //get user saved workout data
-  const { loading, data } = useQuery(GET_USER);
-  const userData = data?.user;
-  const savedWorkouts = userData?.workouts;
-
   const handleSearch = async (bodypart) => {
+    localStorage.setItem("bodypart", bodypart);
     try {
-      localStorage.setItem("bodypart", bodypart);
       // if api response was saved in indexedDB, no need to do api calls
-      const workout = await idbPromise(bodypart, "get");
-      if (workout.length) {
+      const workouts = await idbPromise(bodypart, "get");
+      if (workouts.length) {
         console.log("========retrieving data from idb========");
-        setWorkouts(workout);
+        setWorkouts(workouts);
         return;
       } else {
         const response = await searchExerciseDB(bodypart);
@@ -39,48 +38,43 @@ export default function SearchWorkouts() {
       console.log(err);
     }
   };
+  // get user saved workouts
+  const user = useSelector(selectUser);
+  const savedWorkout = useSelector(selectWorkouts);
+  useEffect(() => {
+    dispatch(queryUser());
+    dispatch(updateSavedWorkout(user.workouts));
+  }, [user]);
+
   // refresh the page and data persists
   const [bodypart, setBodypart] = useState("");
   useEffect(() => {
-    const searchedBodypart = localStorage.getItem("bodypart");
-    setBodypart(searchedBodypart);
-    if (searchedBodypart) {
-      handleSearch(searchedBodypart);
+    const bodypart = localStorage.getItem("bodypart");
+    if (bodypart) {
+      setBodypart(bodypart);
+      handleSearch(bodypart);
     }
   }, []);
 
   return (
-    <div
-      style={{
-        height: "90vh",
-        backgroundImage: "url(/assets/bg-search.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        overflow: "scroll",
-      }}
-    >
-      <h1 className="pt-5 text-center text-white">Get started now!</h1>
+    <div>
+      <h2 className="pt-5 text-center text-shadow">Get started now!</h2>
       {!Auth.loggedIn() && (
-        <h4 className="mt-3 text-center text-white">Login to save workouts</h4>
+        <h4 className="mt-3 text-center text-shadow">Login to save workouts</h4>
       )}
       <SearchInput
-        handleSearch={handleSearch}
         bodypart={bodypart}
+        handleSearch={handleSearch}
         setBodypart={setBodypart}
       />
       <div className="container-fluid ">
         <div className="mt-5 row d-flex justify-content-center">
           {workouts &&
             workouts.map((workout) => (
-              <WorkoutCard
+              <WorkoutCardContainer
                 key={workout.id}
-                name={workout.name}
-                bodyPart={workout.bodyPart}
-                equipment={workout.equipment}
-                gifUrl={workout.gifUrl}
-                workoutId={workout.id}
-                target={workout.target}
-                savedWorkouts={savedWorkouts}
+                workout={workout}
+                saved={savedWorkout?.some((w) => w.id === workout.id)}
               />
             ))}
         </div>

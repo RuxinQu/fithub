@@ -10,7 +10,7 @@ export const GET_USER = gql`
         bodyPart
         equipment
         gifUrl
-        workoutId
+        id
         name
         target
       }
