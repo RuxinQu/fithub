@@ -15,34 +15,22 @@
 
 View deployed website: [![heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://fithub-fitness.herokuapp.com)
 
-The motivation for this app is for all users to find a fitness program and exercise that they can use, whether they are at home or at the gym to meet their fitness goals. Visualization helps demonstrates how to do the exercise correctly with written details for user to read and understand the exercises. This app solves the problem of figuring out what and how to do the exercise for certain body parts.
-
-## Installation
-
-1. Run `git clone git@github.com:RuxinQu/fithub.git` to clone the repo
-2. Run `npm i` to install all the dependencies.
-3. Add environment variable `REACT_APP_apiKey` with the value of your Api key from ExerciseDB to the .env file
-4. Run `npm run develop` to start the project.
+This project is a fitness app that allows users to find a exercise. Exercises are provided by [Exercise DB](https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb). [Redux Toolkit](https://redux-toolkit.js.org) is used to handle async request lifecycles from Exercise DB. The project is a PWA and meets responsive design.
 
 ## Usage
 
-1. Users can search workouts and view the detail.
-2. To save/remove workouts, users need to login/signup.
-3. Users can view the saved workouts from _My Workout_ page.
-4. This project is a PWA, users can install the app.
+1. Users can search and browse workouts and click the View Detail button to see more detail.
+2. To save/remove workouts, users need to Login/Signup.
+3. Users can view the saved workouts from My Workout page.
+4. For better user experience, there's a light/dark mode switch on the top menu.
 
-![Login Page Demo](assets/images/Login.png)
-![Search Page Demo](assets/images/Search.png)
-![Description Page Demo](assets/images/Description.png)
-![My Workouts Page Demo](assets/images/MyWorkouts.png)
-![Light Mode Demo](assets/images/LightMode.png)
-
-## Features
-
-- PWA
-- Login/Logout
-- Save Favorite workouts to "My Workouts"
-- Dark/Light Mode
+5. Project screenshots
+   ![login](./client/public/assets/login.png)
+   ![home](./client/public/assets/homepage.png)
+   ![search](./client/public/assets/search.png)
+   ![save](./client/public/assets/saved.png)
+   ![detail](./client/public/assets/detailpage.png)
+   ![404](./client/public/assets/404.png)
 
 ## Technologies Used
 
