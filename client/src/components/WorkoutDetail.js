@@ -23,50 +23,52 @@ export const WorkoutDetail = ({
       >
         <ArrowBackIcon />
       </IconButton>
-      <div className="row mt-2 d-flex align-items-center justify-content-center ">
-        <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
-          <img
-            alt={workout.name}
-            src={workout.gifUrl}
-            style={{ width: "70%", borderRadius: 15 }}
-          />
-        </div>
-        <div className="detail-text col-12 col-md-6 text-shadow">
-          <h3>{workout.name}</h3>
-          <p>Equipment: {workout.equipment}</p>
-          <p>Body part: {workout.bodyPart}</p>
-          <p>Target: {workout.target}</p>
-          {loggedIn ? (
-            <>
-              {saved && (
-                <IconButton
-                  variant="solid"
-                  onClick={() => handleRemoveWorkout(workout.id)}
-                >
-                  <HeartBrokenIcon color="danger" />
-                  Remove from my workout
-                </IconButton>
-              )}
-              {!saved && (
-                <IconButton
-                  variant="solid"
-                  onClick={() => handleAddWorkout(workout)}
-                >
-                  <FavoriteBorderOutlinedIcon color="danger" />
-                  Add to my workout
-                </IconButton>
-              )}
-            </>
-          ) : (
-            <Button
-              variant="solid"
-              onClick={() => {
-                window.location.assign("/login");
-              }}
-            >
-              Login to save workouts
-            </Button>
-          )}
+      <div className="detail-container container-fluid mt-2">
+        <div className="row d-flex align-items-center justify-content-center ">
+          <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <img
+              alt={workout.name}
+              src={workout.gifUrl}
+              style={{ width: "70%", borderRadius: 15 }}
+            />
+          </div>
+          <div className="detail-text d-flex flex-column col-12 col-md-6 ">
+            <h3>{workout.name}</h3>
+            <p>Equipment: {workout.equipment}</p>
+            <p>Body part: {workout.bodyPart}</p>
+            <p className="mb-5">Target: {workout.target}</p>
+            {loggedIn ? (
+              <>
+                {saved && (
+                  <IconButton
+                    variant="solid"
+                    onClick={() => handleRemoveWorkout(workout.id)}
+                  >
+                    <HeartBrokenIcon color="danger" />
+                    Remove from my workout
+                  </IconButton>
+                )}
+                {!saved && (
+                  <IconButton
+                    variant="solid"
+                    onClick={() => handleAddWorkout(workout)}
+                  >
+                    <FavoriteBorderOutlinedIcon color="danger" />
+                    Add to my workout
+                  </IconButton>
+                )}
+              </>
+            ) : (
+              <Button
+                variant="solid"
+                onClick={() => {
+                  window.location.assign("/login");
+                }}
+              >
+                Login to save workouts
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>
