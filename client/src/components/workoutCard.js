@@ -61,7 +61,7 @@ export const WorkoutCard = ({
           to={`/workout/detail/${workout.id}`}
           style={{ textDecoration: "none" }}
         >
-          Detail
+          View Detail
         </Link>
       </Box>
     </Card>

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser, queryUser } from "../features/userSlice";
 import { selectWorkouts, updateSavedWorkout } from "../features/workoutSlice";
+
 import { searchExerciseDB } from "../utils/Api";
 import Auth from "../utils/auth";
 import { idbPromise } from "../utils/helpers";
-import { WorkoutCardContainer } from "../containers/WorkoutCardContainer";
+
 import { SearchInput } from "../components/SearchInput";
+import { WorkoutCardContainer } from "../containers/WorkoutCardContainer";
 
 export default function SearchWorkouts() {
   const dispatch = useDispatch();
@@ -56,9 +58,9 @@ export default function SearchWorkouts() {
 
   return (
     <div>
-      <h1 className="pt-5 text-center text-white">Get started now!</h1>
+      <h2 className="pt-5 text-center text-shadow">Get started now!</h2>
       {!Auth.loggedIn() && (
-        <h4 className="mt-3 text-center text-white">Login to save workouts</h4>
+        <h4 className="mt-3 text-center text-shadow">Login to save workouts</h4>
       )}
       <SearchInput
         bodypart={bodypart}

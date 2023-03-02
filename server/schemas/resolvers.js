@@ -35,9 +35,7 @@ const resolvers = {
         return await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $addToSet: { workouts: args.input } },
-          {
-            new: true,
-          }
+          { new: true }
         );
       }
 
@@ -47,7 +45,6 @@ const resolvers = {
       if (context.user) {
         return await User.findByIdAndUpdate(
           { _id: context.user._id },
-          // { _id: "63f7f14c7d389b537e7f4f63" },
           { $pull: { workouts: { id: workoutId } } },
           { new: true }
         );

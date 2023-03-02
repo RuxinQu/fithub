@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-import store from "./features/Store";
 import { Provider } from "react-redux";
+import store from "./features/Store";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import "./index.css";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";

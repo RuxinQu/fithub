@@ -1,53 +1,42 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Auth from "../utils/auth";
-import { Button, IconButton } from "@mui/joy";
+
+import { IconButton, Button } from "@mui/joy";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 
-const style = {
-  textShadow: "10px 10px 10px #000",
-  color: "#fff",
-};
-
 export const WorkoutDetail = ({
   workout,
+  saved,
+  loggedIn,
   handleAddWorkout,
   handleRemoveWorkout,
-  saved,
 }) => {
   const navigate = useNavigate();
   return (
     <div>
-      <Button style={{ marginTop: "1rem" }} onClick={() => navigate(-1)}>
+      <IconButton
+        variant="solid"
+        sx={{ margin: "1rem 0 0 2rem" }}
+        onClick={() => navigate(-1)}
+      >
         <ArrowBackIcon />
-      </Button>
+      </IconButton>
       <div className="row mt-2 d-flex align-items-center justify-content-center ">
         <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
           <img
             alt={workout.name}
             src={workout.gifUrl}
-            style={{ width: "80%", borderRadius: 15 }}
+            style={{ width: "70%", borderRadius: 15 }}
           />
         </div>
-        <div
-          className="col-12 col-md-6 text-white "
-          style={{ fontSize: "1.5rem" }}
-        >
-          <h1
-            style={{
-              fontWeight: 600,
-              textShadow: "10px 10px 10px #000",
-              color: "#fff",
-            }}
-          >
-            {workout.name}
-          </h1>
-          <p style={style}>Equipment: {workout.equipment}</p>
-          <p style={style}>Body part: {workout.bodyPart}</p>
-          <p style={style}>Target: {workout.target}</p>
-          {Auth.loggedIn() ? (
+        <div className="detail-text col-12 col-md-6 text-shadow">
+          <h3>{workout.name}</h3>
+          <p>Equipment: {workout.equipment}</p>
+          <p>Body part: {workout.bodyPart}</p>
+          <p>Target: {workout.target}</p>
+          {loggedIn ? (
             <>
               {saved && (
                 <IconButton
@@ -70,6 +59,7 @@ export const WorkoutDetail = ({
             </>
           ) : (
             <Button
+              variant="solid"
               onClick={() => {
                 window.location.assign("/login");
               }}

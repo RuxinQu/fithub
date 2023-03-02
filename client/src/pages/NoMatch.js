@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function NoMatch() {
   const navigate = useNavigate();
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center text-white">
+    <div className="d-flex flex-column justify-content-center align-items-center ">
       <h1>404 Page Not Found</h1>
       {/* use navigate to go back to previous page */}
       <Button
