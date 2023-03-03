@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
   AspectRatio,
   Box,
@@ -51,7 +52,7 @@ export const WorkoutCard = ({
       )}
 
       <AspectRatio minHeight="120px" maxHeight="200px" sx={{ my: 2 }}>
-        <img src={workout.gifUrl} loading="lazy" alt={workout.name} />
+        <LazyLoadImage alt={workout.name} src={workout.gifUrl} />
       </AspectRatio>
 
       <Box sx={{ display: "flex" }}>
