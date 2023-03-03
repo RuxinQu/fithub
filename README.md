@@ -15,7 +15,7 @@
 
 View deployed website: [![heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://fithub-fitness.herokuapp.com)
 
-This project is a fitness app that allows users to find a exercise. Exercises are provided by [Exercise DB](https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb). [Redux Toolkit](https://redux-toolkit.js.org) is used to handle async request lifecycles from Exercise DB. The project is a PWA and meets responsive design.
+This project is a fitness app that allows users to find a exercise. Exercises are provided by [Exercise DB](https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb). [Redux Toolkit](https://redux-toolkit.js.org) is used to handle async request lifecycles from Exercise DB. The project is a PWA and meets responsive design. To increase website performance, used [react-lazy-load-image-component](https://www.npmjs.com/package/react-lazy-load-image-component) package to enable image lazy loading.
 
 ## Usage
 
