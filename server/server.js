@@ -1,5 +1,6 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
+var expressStaticGzip = require("express-static-gzip");
 const { authMiddleware } = require("./utils/auth");
 const path = require("path");
 
@@ -16,6 +17,19 @@ const server = new ApolloServer({
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.use(
+  expressStaticGzip(path.join(__dirname, "../client/build"), {
+    enableBrotli: true,
+    customCompressions: [
+      {
+        encodingName: "deflate",
+        fileExtension: "zz",
+      },
+    ],
+    orderPreference: ["br"],
+  })
+);
 
 // Serve up static assets
 if (process.env.NODE_ENV === "production") {
