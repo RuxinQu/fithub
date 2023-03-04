@@ -1,5 +1,6 @@
 # FitHub
 
+![javascript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 ![react](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
 ![react router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
@@ -15,7 +16,15 @@
 
 View deployed website: [![heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://fithub-fitness.herokuapp.com)
 
-This project is a fitness app that allows users to find a exercise. Exercises are provided by [Exercise DB](https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb). [Redux Toolkit](https://redux-toolkit.js.org) is used to handle async request lifecycles from Exercise DB. The project is a PWA and meets responsive design. To increase website performance, used [react-lazy-load-image-component](https://www.npmjs.com/package/react-lazy-load-image-component) package to enable image lazy loading.
+This project is a fitness app that allows users to find a exercise. Users can login/signup and look for exercises by different bodyparts, view the details and then save the ones they like.
+
+## Table of Contents
+
+- [Usage](#usage)
+- [Technologies Used](#technologies-used)
+- [Google lighthouse report](#google-lighthouse-report)
+- [Credits](#credits)
+- [License](#license)
 
 ## Usage
 
@@ -26,22 +35,25 @@ This project is a fitness app that allows users to find a exercise. Exercises ar
 
 5. Project screenshots
 
-   ![login](./client/public/assets/login.png)
-   ![home](./client/public/assets/homepage.png)
-   ![search](./client/public/assets/search.png)
-   ![save](./client/public/assets/saved.png)
-   ![detail](./client/public/assets/detailpage.png)
-   ![404](./client/public/assets/404.png)
+   ![login](./client/public/assets/login.png) ![search](./client/public/assets/search.png)
 
 ## Technologies Used
 
-- React
-- Redux
+- React: Front end is built with React. React Route enables the page navigarion.
+- Redux: [Redux Toolkit](https://redux-toolkit.js.org) is used to create reducers and handle async request lifecycles from [Exercise DB API](https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb).
 - Express
-- GraphQL
-- MongoDB
+- GraphQL && Apollo
+- MongoDB && Mongoose
 - JWT
-- IndexedDB
+- IndexedDB: to save the exercise data from Exercise DB API to the client side.
+- [Lazy loading image](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading): Used [react-lazy-load-image-component](https://www.npmjs.com/package/react-lazy-load-image-component) to allow lazy loading images and improve web performance.
+- [lossless compression](https://developer.mozilla.org/en-US/docs/Glossary/Lossless_compression): Used [compress-create-react-app](https://www.npmjs.com/package/compress-create-react-app) and [express-static-gzip](https://www.npmjs.com/package/express-static-gzip) packages to enable both [gzip](https://www.gzip.org) compression and [brotli](https://developer.mozilla.org/en-US/docs/Glossary/Brotli_compression) compression, which significantly reduced the application load time.
+- This website is a PWA and meat responsive design.
+
+## Google-lighthouse-report
+
+- Google lighthouse report for **desktops**:
+  ![desktop-lighthouse-report](./client/public/assets/lighthouse-pc.png)
 
 ## Credits
 
