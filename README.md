@@ -47,12 +47,11 @@ This project is a fitness app that allows users to find a exercise. Users can lo
 - JWT
 - IndexedDB: to save the exercise data from Exercise DB API to the client side.
 - [Lazy loading image](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading): Used [react-lazy-load-image-component](https://www.npmjs.com/package/react-lazy-load-image-component) to allow lazy loading images and improve web performance.
-- [lossless compression](https://developer.mozilla.org/en-US/docs/Glossary/Lossless_compression): Used [compress-create-react-app](https://www.npmjs.com/package/compress-create-react-app) and [express-static-gzip](https://www.npmjs.com/package/express-static-gzip) packages to enable both [gzip](https://www.gzip.org) compression and [brotli](https://developer.mozilla.org/en-US/docs/Glossary/Brotli_compression) compression, which significantly reduced the application load time.
-- This website is a PWA and meat responsive design.
+- [Lossless compression](https://developer.mozilla.org/en-US/docs/Glossary/Lossless_compression): Used [compress-create-react-app](https://www.npmjs.com/package/compress-create-react-app) and [express-static-gzip](https://www.npmjs.com/package/express-static-gzip) packages to enable both [gzip](https://www.gzip.org) compression and [brotli](https://developer.mozilla.org/en-US/docs/Glossary/Brotli_compression) compression, which significantly reduced the application load time.
+- This website is a PWA and meets responsive design.
 
 ## Google lighthouse report
 
-- Google lighthouse report for **desktops**:
   ![desktop-lighthouse-report](./client/public/assets/lighthouse-pc.png)
 
 ## Credits
