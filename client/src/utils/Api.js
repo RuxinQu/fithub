@@ -8,7 +8,7 @@ const options = {
 
 export const searchExerciseDB = async (bodypart) => {
   return await fetch(
-    `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodypart}`,
+    `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodypart}?limit=300`,
     options
   );
 };
