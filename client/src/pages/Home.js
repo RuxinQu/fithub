@@ -7,7 +7,7 @@ export default function Home() {
   const user = useSelector(selectUser);
   useEffect(() => {
     dispatch(queryUser());
-  }, [user]);
+  }, [user, dispatch]);
 
   return (
     <div className="home container d-flex flex-column align-items-center justify-content-center">

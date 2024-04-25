@@ -10,7 +10,7 @@ export default function HeaderContainer() {
   const user = useSelector(selectUser);
   useEffect(() => {
     dispatch(queryUser());
-  }, [user]);
+  }, [user, dispatch]);
 
   const { mode, setMode } = useColorScheme("light");
   const loggedIn = Auth.loggedIn();

@@ -16,7 +16,7 @@ export default function Detail() {
   useEffect(() => {
     dispatch(queryUser());
     dispatch(updateSavedWorkout(user.workouts));
-  }, [user]);
+  }, [user, dispatch, workoutId]);
 
   const [workoutToDisplay, setWorkoutToDisplay] = useState({});
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function Detail() {
       }
     }
     getWorkoutDetail();
-  }, []);
+  }, [workoutId]);
 
   return (
     <WorkoutCardContainer

@@ -14,7 +14,7 @@ export default function MyWorkouts() {
   useEffect(() => {
     dispatch(queryUser());
     dispatch(updateSavedWorkout(user.workouts));
-  }, [user]);
+  }, [user, dispatch]);
 
   const loggedIn = Auth.loggedIn();
   return (

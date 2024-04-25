@@ -28,6 +28,7 @@ export default function SearchWorkouts() {
         console.log("========making an api call to exerciseDB========");
         if (response.ok) {
           const jsonResponse = await response.json();
+          console.log(jsonResponse);
           setWorkouts(jsonResponse);
           jsonResponse.forEach((workout) => {
             idbPromise(bodypart, "put", workout);
@@ -44,7 +45,7 @@ export default function SearchWorkouts() {
   useEffect(() => {
     dispatch(queryUser());
     dispatch(updateSavedWorkout(user.workouts));
-  }, [user]);
+  }, [user, dispatch]);
 
   // refresh the page and data persists
   const [bodypart, setBodypart] = useState("");
