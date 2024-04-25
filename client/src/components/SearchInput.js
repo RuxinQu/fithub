@@ -16,6 +16,7 @@ export const SearchInput = ({ handleSearch, setBodypart, bodypart }) => {
         <Option value="back">Back</Option>
         <Option value="chest">Chest</Option>
         <Option value="shoulders">Shoulders</Option>
+        <Option value="upper%20arms">Upper Arms</Option>
         <Option value="cardio">Cardio</Option>
       </Select>
       <Button onClick={() => handleSearch(bodypart)}>Search</Button>
